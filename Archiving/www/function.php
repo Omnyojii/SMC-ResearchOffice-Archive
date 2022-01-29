@@ -80,6 +80,3 @@ function allowUser($table,$id){
     }
     $conn->close();
 }
-
-
-?>
