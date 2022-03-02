@@ -2,7 +2,9 @@
 include "auth.php";
 isSuperAdmin();
 
-// $newID = $_GET['id'];
+if (isset($_GET['id'])){
+    $newID = $_GET['id'];
+}
 ?>
 
 
@@ -66,7 +68,11 @@ isSuperAdmin();
             <h1>Update Account</h1>
             <form name="updating" action="updateacc.php" method="post" id="myForm" enctype="multipart/form-data">
                 <input class="reginput" type="text" name="userID" placeholder="Update by ID"
-                    value="<?php echo $newID ?>" required />
+                    value="<?php
+                        if (isset($_GET['id']) != ''){
+                            echo $newID;
+                        }
+                     ?>" required />
                 <input class="reginput" type="text" name="uName" placeholder="Username" required />
                 <input class="reginput" id="password" type="password" name="uPass" placeholder="Password" required />
                 <div class="regcheck">
