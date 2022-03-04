@@ -9,7 +9,7 @@ function connectdb(){
 	$connect = new mysqli($mysql_server,$mysql_user,$mysql_password,$mysql_db);
 
 	if($connect->connect_error){
-		die("Connection failed: " . $conn->connect_error);
+		die("Connection failed: " . $connect->connect_error);
 	}
     // echo "Connected successfully";
 	$connect->set_charset("utf8");
@@ -62,7 +62,7 @@ function update($table, $id, $data){
 
 function getdata($table, $id){
 	$connect = connectdb();
-	$sql= mysqli_query($connect, "SELECT * FROM $table WHERE id = '$id'") or die(mysql_error());
+	$sql= mysqli_query($connect, "SELECT * FROM $table WHERE id = '$id'") or die($sql->error);
 	$row= mysqli_fetch_assoc($sql);
 	return $row;
 }
@@ -70,13 +70,13 @@ function getdata($table, $id){
 function allowUser($table,$id){
 	$connect = connectdb();
 	$sql = "UPDATE users SET  Perms = '1' WHERE id = '$id'";
-    $query = mysqli_query($conn, $sql);
+    $query = mysqli_query($connect, $sql);
     if ($query) {
         echo "<script>alert('Success');window.location.href='notification.php';</script>";
         die();
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        echo "Error: " . $sql . "<br>" . $connect->error;
 		die();
     }
-    $conn->close();
+    $connect->close();
 }
